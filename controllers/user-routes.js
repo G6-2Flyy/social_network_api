@@ -15,14 +15,6 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const users = await User.find({})
-      .populate({
-        path: "thoughts",
-        select: "-__v",
-      })
-      .populate({
-        path: "friends",
-        select: "-__v",
-      })
       .select("-__v");
     res.json(users);
   } catch (error) {
