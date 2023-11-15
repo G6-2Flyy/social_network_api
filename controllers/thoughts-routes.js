@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
     const newThought = await Thought.create(req.body);
     const updateUser = await User.findOneAndUpdate(
       {
-        username: req.body.username,
+        _id: req.body.userId,
       },
       {
         $push: { thoughts: newThought._id },
@@ -87,37 +87,38 @@ router.post("/:thoughtId/reactions", async (req, res) => {
       }
     );
     if (!updateThought) {
-        res.status(404).json({message: 'No thought found!'})
-        return
+      res.status(404).json({ message: "No thought found!" });
+      return;
     }
+    res.status(201).json(updateThought);
   } catch (error) {
     res
-    .status(500)
-    .json({ message: "Internal server error, please try again! " });
-
+      .status(500)
+      .json({ message: "Internal server error, please try again! " });
   }
 });
 
-router.delete("/:thoughtId/reactions/:reactionId", async (req, res)=> {
-    try {
-        const updateThought = await Thought.findByIdAndUpdate(
-            req.params.thoughtId,
-            {
-              $pull: { reactions: {reactionId: req.params.reactionId} },
-            },
-            {
-              new: true,
-            }
-          );
-          if (!updateThought) {
-              res.status(404).json({message: 'No thought found!'})
-              return
-          }
-      } catch (error) {
-        res
-          .status(500)
-          .json({ message: "Internal server error, please try again! " });
+router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
+  try {
+    const updateThought = await Thought.findByIdAndUpdate(
+      req.params.thoughtId,
+      {
+        $pull: { reactions: { reactionId: req.params.reactionId } },
+      },
+      {
+        new: true,
       }
-})
+    );
+    if (!updateThought) {
+      res.status(404).json({ message: "No thought found!" });
+      return;
+    }
+    res.status(200).json(updateThought);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error, please try again! " });
+  }
+});
 
 module.exports = router;

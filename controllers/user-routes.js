@@ -14,8 +14,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const users = await User.find({})
-      .select("-__v");
+    const users = await User.find({}).select("-__v");
     res.json(users);
   } catch (error) {
     console.log(error);
@@ -70,6 +69,52 @@ router.delete("/:id", async (req, res) => {
       username: deleteUser.username,
     });
     res.status(200).json(deleteUser);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error, please try again! " });
+  }
+});
+
+router.post("/:userId/friends/:friendId", async (req, res) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $push: { friends: req.params.friendId },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updateUser) {
+      res.status(404).json({ message: "No user found!" });
+      return;
+    }
+    res.status(201).json(updateUser);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error, please try again! " });
+  }
+});
+
+router.delete("/:userId/friends/:friendId", async (req, res) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $pull: { friends: req.params.friendId },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updateUser) {
+      res.status(404).json({ message: "No user found!" });
+      return;
+    }
+    res.status(200).json({updateUser, message: "Friend successfully removed!"});
   } catch (error) {
     res
       .status(500)
