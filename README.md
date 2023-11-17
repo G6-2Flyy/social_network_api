@@ -31,7 +31,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Usage
 
-Link to video recording: 
+Link to video recording: https://drive.google.com/file/d/1rdT41_EHI7Gir8lTXPxvAWGueDShcuI1/view
 
 ![alt text](./assets/images/social_network_api_screenshot.png)
 
