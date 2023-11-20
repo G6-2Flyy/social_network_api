@@ -2,7 +2,7 @@
 
 ## Description
 
-The purpose of this project is to create an API for a web-based social network application where users can share their thoughts, react to friends' thoughts, and create a friend list. This application uses `Express.js` for routing, a `MongoDB` database, and a `Mongoose` ODM. Additionally, it uses `Day.js`` to format timestamps. `Insomnia` was used to create seed data for this application.
+The purpose of this project is to create an API for a web-based social network application where users can share their thoughts, react to friends' thoughts, and create a friend list. This application uses `Express.js` for routing, a `MongoDB` database, and a `Mongoose` ODM. Additionally, it uses `Day.js` to format timestamps. `Insomnia` was used to create seed data for this application.
 
 - This application solves the issues of speed and flexibility since it uses MongoDB. MongoDB is a top pick for many social networks due to its speed with large data sets and its flexibility with unstructured data.
 
